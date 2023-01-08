@@ -5,7 +5,8 @@ import App from "./App";
 import notes from "./Index";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App notes={notes} />
-  </React.StrictMode>
+  //<React.StrictMode>
+  <App />
+
+  // </React.StrictMode>
 );

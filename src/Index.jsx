@@ -1,25 +1,27 @@
 const notes = () => {
   return [
     {
-      id: 12,
-      content: "HTML is easy",
-      date: "2019-05-30T17:30:31.098Z",
-      important: true,
-      categories: ["sports", "hobby"],
+      postId: 1,
+      id: 1,
+      title: "id labore ex et quam laborum",
+
+      body: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium",
     },
     {
-      id: 22,
-      content: "Browser can execute only JavaScript",
-      date: "2019-05-30T18:39:34.091Z",
-      important: false,
+      postId: 1,
+      id: 2,
+      title: "quo vero reiciendis velit similique earum",
+
+      body: "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
     },
     {
-      id: 33,
-      content: "GET and POST are the most important methods of HTTP protocol",
-      date: "2019-05-30T19:20:14.298Z",
-      important: true,
+      postId: 1,
+      id: 3,
+      title: "odio adipisci rerum aut animi",
+
+      body: "quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione",
     },
   ];
 };
 
-export default otes;
+export default notes;

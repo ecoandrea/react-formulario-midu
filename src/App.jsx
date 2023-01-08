@@ -1,12 +1,25 @@
-import "./App.css";
+import { useEffect, useState } from "react";
 import Note from "./Note";
+import axios from "axios";
+import { create } from "./servicios/notes";
+import "./App.css";
+import getAllNotes from "./servicios/notes/getAllNotes";
+import createNote from "./servicios/notes/createNote";
 
-import { useState } from "react";
-
-export default function App(props) {
-  const [notes, setNotes] = useState(props.notes);
+export default function App() {
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-  const [showAll, setShowAll] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    console.log("useEffect");
+    setLoading(true);
+    getAllNotes().then((notes) => {
+      setNotes(notes);
+      setLoading(false);
+    });
+  }, []);
 
   const handleChange = (event) => {
     setNewNote(event.target.value);
@@ -14,43 +27,48 @@ export default function App(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     console.log("crear nota");
-    console.log(newNote);
+
     const noteToAddToState = {
-      id: notes.lenght + 1,
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() < 0.5,
+      title: newNote,
+      body: newNote,
+      useId: 1,
     };
-    setNotes(notes.concat(noteToAddToState));
+
+    setError("");
+
+    createNote(noteToAddToState)
+      .then((newNote) => {
+        setNotes((prevNotes) => prevNotes.concat(newNote));
+      })
+      .catch((error) => {
+        console.error(error);
+        setError("la API ha petado");
+      });
+
     setNewNote("");
   };
 
-  const handleShowAll = () => {
-    setShowAll(() => !showAll);
-  };
+  console.log("render");
 
   return (
     <div>
       <h1>Notes</h1>
-      <button onClick={handleShowAll}>
-        {showAll ? "Show only important" : "Show all"}
-      </button>
+      {loading ? "Cargando..." : ""}
+
       <ol>
-        {notes
-          .filter((note) => {
-            if (showAll === true) return true;
-            return note.import === true;
-          })
-          .map((note) => (
-            <Note key={note.id} {...note} />
-          ))}
+        {notes.map((note) => (
+          <Note key={note.id} {...note} />
+        ))}
       </ol>
 
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} value={newNote} />
         <button>Crear notas</button>
       </form>
+
+      {error ? error : ""}
     </div>
   );
 }
